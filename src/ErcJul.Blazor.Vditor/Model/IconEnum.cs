@@ -2,19 +2,21 @@ namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
 
-// public class IconEnum : Enumeration
-// {
-//     public static IconEnum Antd = new(0, "antd");
-//     public static IconEnum Material = new(1, "material");
-//
-//     public IconEnum(int id, string name)
-//         : base(id, name)
-//     {
-//     }
-// }
+/// <summary>
+///     Represents the icon options available in the Vditor editor.
+/// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter<IconEnum>))]
 public enum IconEnum
 {
-    [JsonStringEnumMemberName("antd")] Antd = 0,
-    [JsonStringEnumMemberName("material")] Material = 1,
+    /// <summary>
+    ///     The Ant Design icon option.
+    /// </summary>
+    [JsonStringEnumMemberName("ant")]
+    Antd = 0,
+
+    /// <summary>
+    ///     The Material Design icon option.
+    /// </summary>
+    [JsonStringEnumMemberName("material")]
+    Material = 1,
 }

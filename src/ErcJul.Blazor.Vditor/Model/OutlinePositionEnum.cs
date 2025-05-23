@@ -2,19 +2,21 @@ namespace ErcJul.Blazor.Vditor.Model;
 
 using System.Text.Json.Serialization;
 
-// public class OutlinePositionEnum : Enumeration
-// {
-//     public static OutlinePositionEnum Left = new(0, "left");
-//     public static OutlinePositionEnum Right = new(1, "right");
-//
-//     public OutlinePositionEnum(int id, string name)
-//         : base(id, name)
-//     {
-//     }
-// }
+/// <summary>
+///     Represents the position options for the outline feature in the Vditor editor.
+/// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter<OutlinePositionEnum>))]
 public enum OutlinePositionEnum
 {
-    [JsonStringEnumMemberName("left")] Left = 0,
-    [JsonStringEnumMemberName("right")] Right = 1,
+    /// <summary>
+    ///     The outline is positioned on the left side of the editor.
+    /// </summary>
+    [JsonStringEnumMemberName("left")]
+    Left = 0,
+
+    /// <summary>
+    ///     The outline is positioned on the right side of the editor.
+    /// </summary>
+    [JsonStringEnumMemberName("right")]
+    Right = 1,
 }

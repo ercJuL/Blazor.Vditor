@@ -1,19 +1,46 @@
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
+using ErcJul.Blazor.Vditor.Model;
 
+/// <summary>
+///     Represents the configuration options for comments in the Vditor editor.
+/// </summary>
+/// <remarks>
+///     See <see href="https://ld246.com/article/1549638745630#options-comment">vditor.options-comment</see>.
+/// </remarks>
 public class CommentOption
 {
+    /// <summary>
+    ///     Gets or sets a value indicating whether comments are enabled.
+    /// </summary>
+    /// <remarks>
+    ///     Default is <c>false</c>. Set to <c>true</c> to enable comments in the editor.
+    /// </remarks>
     [JsonPropertyName("enable")]
-    public bool? Enable { get; set; } = false;
+    public bool? Enable { get; set; }
 
-    // [JsonIgnore]public Action<string, string, List<CommentData>>? Add { get; set; }
+    /// <summary>
+    ///     Gets or sets the action to add a comment with specified parameters.
+    /// </summary>
+    [JsonIgnore]
+    public Action<string, string, List<CommentsData>>? Add { get; set; }
 
+    /// <summary>
+    ///     Gets or sets the action to remove comments based on a list of identifiers.
+    /// </summary>
     [JsonIgnore]
     public Action<List<string>>? Remove { get; set; }
 
+    /// <summary>
+    ///     Gets or sets the action to scroll to a specific comment by its identifier.
+    /// </summary>
     [JsonIgnore]
     public Action<uint>? Scroll { get; set; }
 
-    // [JsonIgnore]public Action<List<CommentData>>? AdjustTop { get; set; }
+    /// <summary>
+    ///     Gets or sets the action to adjust the top position of comme
+    /// </summary>
+    [JsonIgnore]
+    public Action<List<CommentsData>>? AdjustTop { get; set; }
 }

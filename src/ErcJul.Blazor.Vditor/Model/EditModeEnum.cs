@@ -2,21 +2,27 @@ namespace ErcJul.Blazor.Vditor.Model;
 
 using System.Text.Json.Serialization;
 
-// public class EditModeEnum : Enumeration
-// {
-//     public static EditModeEnum WYSIWYG = new(0, "wysiwyg");
-//     public static EditModeEnum Sv = new(1, "sv");
-//     public static EditModeEnum Ir = new(2, "ir");
-//
-//     public EditModeEnum(int id, string value)
-//         : base(id, value)
-//     {
-//     }
-// }
+/// <summary>
+///     Defines the editing modes available in the Vditor editor.
+/// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter<EditModeEnum>))]
 public enum EditModeEnum
 {
-    [JsonStringEnumMemberName("wysiwyg")] WYSIWYG = 0,
-    [JsonStringEnumMemberName("sv")] Sv = 1,
-    [JsonStringEnumMemberName("ir")] Ir = 2,
+    /// <summary>
+    ///     Represents the WYSIWYG (What You See Is What You Get) editing mode.
+    /// </summary>
+    [JsonStringEnumMemberName("wysiwyg")]
+    Wysiwyg = 0,
+
+    /// <summary>
+    ///     Represents the SV (Split View) editing mode.
+    /// </summary>
+    [JsonStringEnumMemberName("sv")]
+    Sv = 1,
+
+    /// <summary>
+    ///     Represents the IR (Instant Rendering) editing mode.
+    /// </summary>
+    [JsonStringEnumMemberName("ir")]
+    Ir = 2,
 }

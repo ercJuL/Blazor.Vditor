@@ -2,19 +2,21 @@ namespace ErcJul.Blazor.Vditor.Model;
 
 using System.Text.Json.Serialization;
 
-// public class PreviewModeEnum : Enumeration
-// {
-//     public static PreviewModeEnum Both = new(0, "both");
-//     public static PreviewModeEnum Editor = new(1, "editor");
-//
-//     public PreviewModeEnum(int id, string name)
-//         : base(id, name)
-//     {
-//     }
-// }
+/// <summary>
+///     Defines the preview modes available in the Vditor editor.
+/// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter<PreviewModeEnum>))]
 public enum PreviewModeEnum
 {
-    [JsonStringEnumMemberName("both")] Both = 0,
-    [JsonStringEnumMemberName("editor")] Editor = 1,
+    /// <summary>
+    ///     Represents the mode where both the editor and preview are displayed.
+    /// </summary>
+    [JsonStringEnumMemberName("both")]
+    Both = 0,
+
+    /// <summary>
+    ///     Represents the mode where only the editor is displayed.
+    /// </summary>
+    [JsonStringEnumMemberName("editor")]
+    Editor = 1,
 }
