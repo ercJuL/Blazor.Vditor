@@ -12,8 +12,16 @@ public partial class Vditor : ComponentBase, IAsyncDisposable
     [Inject]
     private IJSRuntime JsRuntime { get; set; }
 
+    private bool Readonly => this.VditorReadonlyOption is not null;
+
     [Parameter]
-    public VditorOption VditorOption { get; set; } = new();
+    public VditorOption? VditorOption { get; set; }
+
+    [Parameter]
+    public VditorReadonlyOption? VditorReadonlyOption { get; set; }
+
+    [Parameter]
+    public string Content { get; set; } = string.Empty;
 
     public async ValueTask DisposeAsync()
     {
@@ -35,34 +43,72 @@ public partial class Vditor : ComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            foreach (var item in this.VditorOption.Toolbar ?? [])
+            if (this.Readonly)
             {
-                item.Register(ref this.ToolbarCallbackMap);
             }
-
-            this.ResizeAfterCallback = this.VditorOption.Resize?.After;
-            this.CounterAfterCallback = this.VditorOption.Counter?.After;
-            this.CacheAfterCallback = this.VditorOption.Cache?.After;
-
-            // TODO Preview
-            this.LinkClickCallback = this.VditorOption.Link?.Click;
-            this.ImagePreviewCallback = this.VditorOption.Image?.Preview;
-
-            // TODO Hint
-            // TODO Comment
-            // TODO Upload
-            // TODO customRenders
+            else
+            {
+                this.InitVditorOption();
+            }
 
             this.vditorDotNetModule = await this.JsRuntime.InvokeAsync<IJSObjectReference>(
                 "import",
                 "./_content/ErcJul.Blazor.Vditor/Vditor.razor.js");
 
-            // this.VditorOption
-            await this.vditorDotNetModule.InvokeVoidAsync(
-                "initVditor",
-                "ercjul.vditor",
-                DotNetObjectReference.Create(this),
-                this.VditorOption);
+            if (this.Readonly)
+            {
+                await this.vditorDotNetModule.InvokeVoidAsync(
+                    "initReadonlyVditor",
+                    "ercjul.vditor",
+                    this.Content,
+                    DotNetObjectReference.Create(this),
+                    this.VditorReadonlyOption);
+            }
+            else
+            {
+                await this.vditorDotNetModule.InvokeVoidAsync(
+                    "initVditor",
+                    "ercjul.vditor",
+                    DotNetObjectReference.Create(this),
+                    this.VditorOption);
+            }
         }
+    }
+
+    private void InitVditorOption()
+    {
+        foreach (var item in this.VditorOption.Toolbar ?? [])
+        {
+            item.Register(ref this.ToolbarCallbackMap);
+        }
+
+        this.ResizeAfterCallback = this.VditorOption.Resize?.After;
+        this.CounterAfterCallback = this.VditorOption.Counter?.After;
+        this.CacheAfterCallback = this.VditorOption.Cache?.After;
+        this.PreviewParseCallback = this.VditorOption.Preview?.Parse;
+        this.PreviewTransformCallback = this.VditorOption.Preview?.Transform;
+        foreach (var previewAction in this.VditorOption.Preview?.Actions ?? [])
+        {
+            previewAction.Register(ref this.PreviewActionCallbackMap);
+        }
+
+        this.LinkClickCallback = this.VditorOption.Link?.Click;
+        this.ImagePreviewCallback = this.VditorOption.Image?.Preview;
+        foreach (var extendOption in this.VditorOption.Hint?.Extend ?? [])
+        {
+            extendOption.Register(ref this.HintCallbackMap);
+        }
+
+        this.CommentAddCallback = this.VditorOption.Comment?.Add;
+        this.CommentRemoveCallback = this.VditorOption.Comment?.Remove;
+        this.CommentScrollCallback = this.VditorOption.Comment?.Scroll;
+        this.CommentAdjustTopCallback = this.VditorOption.Comment?.AdjustTop;
+
+        // TODO Upload
+        // TODO customRenders
+    }
+
+    private void InitVditorReadonlyOption()
+    {
     }
 }

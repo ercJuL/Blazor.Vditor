@@ -1,6 +1,16 @@
-﻿<link href="./_content/ErcJul.Blazor.Vditor/vditor.min.css" rel="stylesheet"/>
+﻿@using Microsoft.AspNetCore.Components.Web
+<HeadContent>
+    <link href="./_content/ErcJul.Blazor.Vditor/vditor.min.css" rel="stylesheet"/>
+    @if (Readonly)
+    {
+        <script src="./_content/ErcJul.Blazor.Vditor/vditor.readonly.min.js"></script>
+    }
+    else
+    {
+        <script src="./_content/ErcJul.Blazor.Vditor/vditor.min.js"></script>
+    }
+</HeadContent>
 
 <div id="ercjul.vditor" @ref="refEditor"/>
 <div id="loading"/>
 
-<script src="./_content/ErcJul.Blazor.Vditor/vditor.min.js"></script>

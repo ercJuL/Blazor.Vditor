@@ -657,6 +657,11 @@ public class MenuItemJsonConverter : JsonConverter<MenuItem>
             writer.WriteNumber("level", value.Level.Value);
         }
 
+        if (value.OnClick is not null)
+        {
+            writer.WriteString("click", value.Name);
+        }
+
         writer.WriteEndObject();
     }
 }

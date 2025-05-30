@@ -24,23 +24,23 @@ public class CommentOption
     ///     Gets or sets the action to add a comment with specified parameters.
     /// </summary>
     [JsonIgnore]
-    public Action<string, string, List<CommentsData>>? Add { get; set; }
+    public Func<string, string, List<CommentsData>, Task>? Add { get; set; }
 
     /// <summary>
     ///     Gets or sets the action to remove comments based on a list of identifiers.
     /// </summary>
     [JsonIgnore]
-    public Action<List<string>>? Remove { get; set; }
+    public Func<List<string>, Task>? Remove { get; set; }
 
     /// <summary>
     ///     Gets or sets the action to scroll to a specific comment by its identifier.
     /// </summary>
     [JsonIgnore]
-    public Action<uint>? Scroll { get; set; }
+    public Func<uint, Task>? Scroll { get; set; }
 
     /// <summary>
     ///     Gets or sets the action to adjust the top position of comme
     /// </summary>
     [JsonIgnore]
-    public Action<List<CommentsData>>? AdjustTop { get; set; }
+    public Func<List<CommentsData>, Task>? AdjustTop { get; set; }
 }

@@ -7,13 +7,25 @@
         <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Folder Include="wwwroot\"/>
-    </ItemGroup>
+    <PropertyGroup>
+        <PackageId>ErcJul.Blazor.Vditor</PackageId>
+        <Version>0.0.1</Version>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <Authors>ercjul</Authors>
+        <Copyright>Copyright 2025 The ErcJul.Blazor.Vditor Authors</Copyright>
+        <Description>vditor.js for blazor</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/ercJuL/Blazor.Vditor</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/ercJuL/Blazor.Vditor</RepositoryUrl>
+        <RepositoryBranch>main</RepositoryBranch>
+        <PackageTags>vditor blazor</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.15"/>
-        <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="8.0.15"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.5"/>
+        <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="9.0.5"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +36,12 @@
         <None Update="Vditor.razor.css">
             <DependentUpon>Vditor.razor</DependentUpon>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\..\README.md" Pack="true" PackagePath="\">
+            <Link>README.md</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

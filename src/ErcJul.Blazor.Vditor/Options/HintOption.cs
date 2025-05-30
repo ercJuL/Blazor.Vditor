@@ -51,5 +51,5 @@ public class HintOption
     ///     Gets or sets the list of extended hint options.
     /// </summary>
     [JsonPropertyName("extend")]
-    public List<HintExtendOption>? Extend { get; set; } = new();
+    public List<HintExtendOption>? Extend { get; set; } = [];
 }

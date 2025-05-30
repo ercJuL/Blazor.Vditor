@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 ///     Represents the mathematical rendering engine options available in the Vditor editor.
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter<LanguageEnum>))]
+[JsonConverter(typeof(JsonStringEnumConverter<MathEngineEnum>))]
 public enum MathEngineEnum
 {
     /// <summary>

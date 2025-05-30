@@ -68,7 +68,7 @@ public class PreviewOption
     /// <summary>
     ///     Gets or sets the list of custom preview actions.
     /// </summary>
-    public List<Action<PreviewActionCustom>> Actions { get; set; } = [];
+    public List<PreviewActionCustom> Actions { get; set; } = [];
 
     // public TODO? Render { get; set; }
 
@@ -76,12 +76,12 @@ public class PreviewOption
     ///     Gets or sets the delegate for parsing operations. Ignored during JSON serialization.
     /// </summary>
     [JsonIgnore]
-    public Action? Parse { get; set; }// Action<ElementReference>
+    public Func<Task>? Parse { get; set; }// Action<ElementReference>
 
     /// <summary>
     ///     Gets or sets the delegate for transformation operations, accepts a string parameter. Ignored during JSON
     ///     serialization.
     /// </summary>
     [JsonIgnore]
-    public Action<string>? Transform { get; set; }
+    public Func<string, Task<string>>? Transform { get; set; }
 }
