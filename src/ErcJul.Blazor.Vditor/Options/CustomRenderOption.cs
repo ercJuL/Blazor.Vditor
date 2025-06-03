@@ -1,3 +1,7 @@
+// <copyright file="CustomRenderOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -11,7 +15,7 @@ public class CustomRenderOption
     ///     Gets or sets the language used for custom rendering.
     /// </summary>
     [JsonPropertyName("language")]
-    public string Language { get; set; }
+    public required string Language { get; set; }
 
     // /// <summary>
     // /// Gets or sets the action to render custom content with the specified parameters.

@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -23,13 +24,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.5"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.5"/>
-        <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="9.0.5"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup Label="ConfigFiles">
+        <AdditionalFiles Include="../../stylecop.json" Visible="true"/>
+        <None Condition="Exists('$(EditorConfigFile)')" Include="$(EditorConfigFile)" Visible="false"/>
     </ItemGroup>
 
     <ItemGroup>

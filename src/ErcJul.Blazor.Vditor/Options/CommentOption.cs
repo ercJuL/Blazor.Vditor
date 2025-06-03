@@ -1,3 +1,7 @@
+// <copyright file="CommentOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -12,6 +16,21 @@ using ErcJul.Blazor.Vditor.Model;
 public class CommentOption
 {
     /// <summary>
+    ///     Gets or sets the action to add a comment with specified parameters.
+    /// </summary>
+    [JsonIgnore]
+    public Func<string, string, List<CommentsData>, Task>? Add { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the action to adjust the top position of comments.
+    /// </summary>
+    /// <remarks>
+    ///     This callback is invoked with a list of <see cref="CommentsData" /> objects to adjust their top positions.
+    /// </remarks>
+    [JsonIgnore]
+    public Func<List<CommentsData>, Task>? AdjustTop { get; set; }
+
+    /// <summary>
     ///     Gets or sets a value indicating whether comments are enabled.
     /// </summary>
     /// <remarks>
@@ -19,12 +38,6 @@ public class CommentOption
     /// </remarks>
     [JsonPropertyName("enable")]
     public bool? Enable { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the action to add a comment with specified parameters.
-    /// </summary>
-    [JsonIgnore]
-    public Func<string, string, List<CommentsData>, Task>? Add { get; set; }
 
     /// <summary>
     ///     Gets or sets the action to remove comments based on a list of identifiers.
@@ -37,10 +50,4 @@ public class CommentOption
     /// </summary>
     [JsonIgnore]
     public Func<uint, Task>? Scroll { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the action to adjust the top position of comme
-    /// </summary>
-    [JsonIgnore]
-    public Func<List<CommentsData>, Task>? AdjustTop { get; set; }
 }

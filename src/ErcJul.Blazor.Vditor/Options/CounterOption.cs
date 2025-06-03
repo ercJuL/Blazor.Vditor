@@ -1,3 +1,7 @@
+// <copyright file="CounterOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -11,6 +15,15 @@ using ErcJul.Blazor.Vditor.Model;
 /// </remarks>
 public class CounterOption
 {
+    /// <summary>
+    ///     Gets or sets a callback function to be executed after the counter updates.
+    /// </summary>
+    /// <remarks>
+    ///     The function takes the current count and the <see cref="CounterOption" /> instance as parameters.
+    /// </remarks>
+    [JsonIgnore]
+    public Func<uint, CounterOption, Task>? After { get; set; }
+
     /// <summary>
     ///     Gets or sets a value indicating whether the counter is enabled.
     /// </summary>
@@ -37,13 +50,4 @@ public class CounterOption
     /// </remarks>
     [JsonPropertyName("type")]
     public ContentTypeEnum? Type { get; set; }
-
-    /// <summary>
-    ///     Gets or sets a callback function to be executed after the counter updates.
-    /// </summary>
-    /// <remarks>
-    ///     The function takes the current count and the <see cref="CounterOption" /> instance as parameters.
-    /// </remarks>
-    [JsonIgnore]
-    public Func<uint, CounterOption, Task>? After { get; set; }
 }

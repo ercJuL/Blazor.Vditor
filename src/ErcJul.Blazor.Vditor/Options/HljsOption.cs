@@ -1,3 +1,7 @@
+// <copyright file="HljsOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 /// <summary>
@@ -14,16 +18,6 @@ public class HljsOption
     public string? DefaultLang { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether line numbers should be displayed.
-    /// </summary>
-    public bool? LineNumber { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the style to be used for syntax highlighting.
-    /// </summary>
-    public string? Style { get; set; }
-
-    /// <summary>
     ///     Gets or sets a value indicating whether Highlight.js is enabled.
     /// </summary>
     public bool? Enable { get; set; }
@@ -32,6 +26,16 @@ public class HljsOption
     ///     Gets or sets the collection of supported languages for syntax highlighting.
     /// </summary>
     public IEnumerable<string>? Langs { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether line numbers should be displayed.
+    /// </summary>
+    public bool? LineNumber { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the style to be used for syntax highlighting.
+    /// </summary>
+    public string? Style { get; set; }
 
     // TODO renderMenu
 }

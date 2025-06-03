@@ -1,3 +1,7 @@
+// <copyright file="CacheOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -11,13 +15,13 @@ using System.Text.Json.Serialization;
 public class CacheOption
 {
     /// <summary>
-    ///     Gets or sets the unique identifier for the cache.
+    ///     Gets or sets a callback function to be executed after a cache operation is completed.
     /// </summary>
     /// <remarks>
-    ///     This identifier is used to distinguish different cache instances.
+    ///     The callback function takes a string parameter representing the cached content.
     /// </remarks>
-    [JsonPropertyName("id")]
-    public string? Id { get; set; }
+    [JsonIgnore]
+    public Func<string, Task>? After { get; set; }
 
     /// <summary>
     ///     Gets or sets a value indicating whether caching is enabled.
@@ -29,11 +33,11 @@ public class CacheOption
     public bool? Enable { get; set; }
 
     /// <summary>
-    ///     Gets or sets a callback function to be executed after a cache operation is completed.
+    ///     Gets or sets the unique identifier for the cache.
     /// </summary>
     /// <remarks>
-    ///     The callback function takes a string parameter representing the cached content.
+    ///     This identifier is used to distinguish different cache instances.
     /// </remarks>
-    [JsonIgnore]
-    public Func<string, Task>? After { get; set; }
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
 }

@@ -1,8 +1,12 @@
+// <copyright file="HintExtendOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Model;
 
 using System.Diagnostics;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using ErcJul.Blazor.Vditor.Options;
 
 /// <summary>
 ///     Represents the extended hint options for the Vditor editor.
@@ -10,11 +14,6 @@ using System.Text.Json.Serialization;
 [JsonConverter(typeof(HintExtendOptionJsonConverter))]
 public class HintExtendOption
 {
-    /// <summary>
-    ///     Gets or sets the key associated with the extended hint option.
-    /// </summary>
-    public string Key { get; set; }
-
     /// <summary>
     ///     Gets or sets a function that provides a list of hint data asynchronously based on a given key.
     /// </summary>
@@ -24,6 +23,25 @@ public class HintExtendOption
     [JsonIgnore]
     public Func<string, Task<List<HintData>>>? Hint { get; set; }
 
+    /// <summary>
+    ///     Gets or sets the key associated with the extended hint option.
+    /// </summary>
+    public required string Key { get; set; }
+
+    /// <summary>
+    ///     Registers the hint callback function in the provided callback map.
+    /// </summary>
+    /// <param name="callbackMap">
+    ///     A reference to the dictionary that maps keys to hint callback functions.
+    ///     This dictionary must not be null.
+    /// </param>
+    /// <remarks>
+    ///     If the <see cref="Hint" /> property is not null, the method adds the key-value pair
+    ///     consisting of <see cref="Key" /> and <see cref="Hint" /> to the callback map.
+    /// </remarks>
+    /// <exception cref="System.Diagnostics.Debug.Assert(bool, string)">
+    ///     Throws an assertion failure if <paramref name="callbackMap" /> is null.
+    /// </exception>
     public void Register(ref Dictionary<string, Func<string, Task<List<HintData>>>> callbackMap)
     {
         Debug.Assert(callbackMap != null, nameof(callbackMap) + " != null");
@@ -32,53 +50,5 @@ public class HintExtendOption
         {
             callbackMap.Add(this.Key, this.Hint);
         }
-    }
-}
-
-public class HintExtendOptionJsonConverter : JsonConverter<HintExtendOption>
-{
-    public override HintExtendOption? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        if (reader.TokenType != JsonTokenType.StartObject)
-        {
-            throw new JsonException("Expected start of object.");
-        }
-
-        var option = new HintExtendOption();
-
-        while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
-        {
-            if (reader.TokenType == JsonTokenType.PropertyName)
-            {
-                var propertyName = reader.GetString();
-                reader.Read();
-
-                switch (propertyName)
-                {
-                    case "key":
-                        option.Key = reader.GetString() ?? string.Empty;
-                        break;
-                    default:
-                        continue;
-                }
-            }
-        }
-
-        return option;
-    }
-
-    public override void Write(Utf8JsonWriter writer, HintExtendOption value, JsonSerializerOptions options)
-    {
-        writer.WriteStartObject();
-        writer.WriteString("key", value.Key);
-
-        if (value.Hint is not null)
-        {
-            // Note: The Hint function cannot be serialized directly.
-            // You may need to handle this case differently based on your requirements.
-            writer.WriteString("hint", value.Key);
-        }
-
-        writer.WriteEndObject();
     }
 }

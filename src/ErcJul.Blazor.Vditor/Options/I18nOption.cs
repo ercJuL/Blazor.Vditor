@@ -1,3 +1,7 @@
+// <copyright file="I18nOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor;
 
 /// <summary>
@@ -296,14 +300,14 @@ public class I18nOption
     public required string Record { get; set; }
 
     /// <summary>
-    ///     Gets or sets the text for recording tips.
-    /// </summary>
-    public required string RecordTip { get; set; }
-
-    /// <summary>
     ///     Gets or sets the text for indicating recording is in progress.
     /// </summary>
     public required string Recording { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the text for recording tips.
+    /// </summary>
+    public required string RecordTip { get; set; }
 
     /// <summary>
     ///     Gets or sets the text for redoing an action.

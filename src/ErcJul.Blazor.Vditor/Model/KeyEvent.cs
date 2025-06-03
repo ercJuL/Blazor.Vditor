@@ -1,3 +1,7 @@
+// <copyright file="KeyEvent.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Model;
 
 /// <summary>
@@ -23,7 +27,7 @@ public record KeyEvent
     /// <summary>
     ///     Gets or sets the code of the key that triggered the event.
     /// </summary>
-    public string Code { get; set; }
+    public required string Code { get; set; }
 
     /// <summary>
     ///     Gets or sets a value indicating whether the Ctrl key was pressed during the event.
@@ -38,7 +42,7 @@ public record KeyEvent
     /// <summary>
     ///     Gets or sets the key value of the key that triggered the event.
     /// </summary>
-    public string Key { get; set; }
+    public required string Key { get; set; }
 
     /// <summary>
     ///     Gets or sets the location of the key on the keyboard.

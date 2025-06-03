@@ -1,3 +1,7 @@
+// <copyright file="ResizeOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -11,6 +15,15 @@ using ErcJul.Blazor.Vditor.Model;
 /// </remarks>
 public class ResizeOption
 {
+    /// <summary>
+    ///     Gets or sets a callback function to be executed after resizing.
+    /// </summary>
+    /// <remarks>
+    ///     The function takes an integer parameter representing the new size and returns a <see cref="Task" />.
+    /// </remarks>
+    [JsonIgnore]
+    public Func<int, Task>? After { get; set; }
+
     /// <summary>
     ///     Gets or sets a value indicating whether resizing is enabled.
     /// </summary>
@@ -28,13 +41,4 @@ public class ResizeOption
     /// </remarks>
     [JsonPropertyName("position")]
     public ResizePositionEnum? Position { get; set; }
-
-    /// <summary>
-    ///     Gets or sets a callback function to be executed after resizing.
-    /// </summary>
-    /// <remarks>
-    ///     The function takes an integer parameter representing the new size and returns a <see cref="Task" />.
-    /// </remarks>
-    [JsonIgnore]
-    public Func<int, Task>? After { get; set; }
 }

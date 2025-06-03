@@ -1,3 +1,7 @@
+// <copyright file="PreviewThemeOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 /// <summary>
@@ -8,7 +12,7 @@ public class PreviewThemeOption
     /// <summary>
     ///     Gets or sets the current preview theme.
     /// </summary>
-    public string Current { get; set; }
+    public required string Current { get; set; }
 
     /// <summary>
     ///     Gets or sets the list of available preview themes.

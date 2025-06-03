@@ -1,3 +1,7 @@
+// <copyright file="HintOption.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 using System.Text.Json.Serialization;
@@ -11,18 +15,6 @@ using ErcJul.Blazor.Vditor.Model;
 /// </remarks>
 public class HintOption
 {
-    /// <summary>
-    ///     Gets or sets a value indicating whether parsing is enabled.
-    /// </summary>
-    [JsonPropertyName("parse")]
-    public bool? Parse { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the text to append to emoji hints.
-    /// </summary>
-    [JsonPropertyName("emojiTail")]
-    public string? EmojiTail { get; set; }
-
     /// <summary>
     ///     Gets or sets the delay time for displaying hints.
     /// </summary>
@@ -48,8 +40,20 @@ public class HintOption
     public string? EmojiPath { get; set; }
 
     /// <summary>
+    ///     Gets or sets the text to append to emoji hints.
+    /// </summary>
+    [JsonPropertyName("emojiTail")]
+    public string? EmojiTail { get; set; }
+
+    /// <summary>
     ///     Gets or sets the list of extended hint options.
     /// </summary>
     [JsonPropertyName("extend")]
     public List<HintExtendOption>? Extend { get; set; } = [];
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether parsing is enabled.
+    /// </summary>
+    [JsonPropertyName("parse")]
+    public bool? Parse { get; set; }
 }

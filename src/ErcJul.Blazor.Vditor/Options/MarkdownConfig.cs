@@ -1,3 +1,7 @@
+// <copyright file="MarkdownConfig.cs" company="ercjul">
+// Copyright (c) ErcJul.Blazor.Vditor Authors. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 namespace ErcJul.Blazor.Vditor.Options;
 
 /// <summary>
@@ -17,12 +21,12 @@ public class MarkdownConfig
     public bool? AutoSpace { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether to add a space at the beginning of a paragraph.
+    ///     Gets or sets a value indicating whether to enable code block previews in WYSIWYG or IR edit type.
     /// </summary>
     /// <remarks>
-    ///     Default is <c>false</c>.
+    ///     Default is <c>true</c>.
     /// </remarks>
-    public bool? ParagraphBeginningSpace { get; set; }
+    public bool? CodeBlockPreview { get; set; }
 
     /// <summary>
     ///     Gets or sets a value indicating whether to fix common term typos.
@@ -33,14 +37,6 @@ public class MarkdownConfig
     public bool? FixTermTypo { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether to enable the Table of Contents (TOC) feature.
-    /// </summary>
-    /// <remarks>
-    ///     Default is <c>false</c>. Set to <c>true</c> to enable the TOC feature.
-    /// </remarks>
-    public bool? Toc { get; set; }
-
-    /// <summary>
     ///     Gets or sets a value indicating whether to enable footnotes in Markdown.
     /// </summary>
     /// <remarks>
@@ -49,28 +45,12 @@ public class MarkdownConfig
     public bool? Footnotes { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether to enable code block previews in WYSIWYG or IR edit type.
+    ///     Gets or sets a value indicating whether to enable GitHub Flavored Markdown (GFM) auto-linking.
     /// </summary>
     /// <remarks>
     ///     Default is <c>true</c>.
     /// </remarks>
-    public bool? CodeBlockPreview { get; set; }
-
-    /// <summary>
-    ///     Gets or sets a value indicating whether to enable math block previews in WYSIWYG or IR edit type.
-    /// </summary>
-    /// <remarks>
-    ///     Default is <c>true</c>.
-    /// </remarks>
-    public bool? MathBlockPreview { get; set; }
-
-    /// <summary>
-    ///     Gets or sets a value indicating whether to filter XSS content.
-    /// </summary>
-    /// <remarks>
-    ///     Default is <c>true</c>.
-    /// </remarks>
-    public bool? Sanitize { get; set; }
+    public bool? GfmAutoLink { get; set; }
 
     /// <summary>
     ///     Gets or sets a value indicating whether to enable the base URL for links.
@@ -106,10 +86,34 @@ public class MarkdownConfig
     public bool? Mark { get; set; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether to enable GitHub Flavored Markdown (GFM) auto-linking.
+    ///     Gets or sets a value indicating whether to enable math block previews in WYSIWYG or IR edit type.
     /// </summary>
     /// <remarks>
     ///     Default is <c>true</c>.
     /// </remarks>
-    public bool? GfmAutoLink { get; set; }
+    public bool? MathBlockPreview { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether to add a space at the beginning of a paragraph.
+    /// </summary>
+    /// <remarks>
+    ///     Default is <c>false</c>.
+    /// </remarks>
+    public bool? ParagraphBeginningSpace { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether to filter XSS content.
+    /// </summary>
+    /// <remarks>
+    ///     Default is <c>true</c>.
+    /// </remarks>
+    public bool? Sanitize { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether to enable the Table of Contents (TOC) feature.
+    /// </summary>
+    /// <remarks>
+    ///     Default is <c>false</c>. Set to <c>true</c> to enable the TOC feature.
+    /// </remarks>
+    public bool? Toc { get; set; }
 }

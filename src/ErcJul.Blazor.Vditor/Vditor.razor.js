@@ -1,4 +1,4 @@
-export const delNullNodes = (option = {}) => {
+const delNullNodes = (option = {}) => {
     Object.keys(option).forEach((key) => {
         let value = option[key];
         value && typeof value === 'object' && delNullNodes(value);
@@ -22,7 +22,7 @@ function createVditor(element, dotNet, options) {
     delNullNodes(options);
     const vditor = new Vditor(element, {
         ...options,
-        toolbar: options.toolbar ? options.toolbar.map(x => {
+        toolbar: options.toolbar?.map(x => {
             if (x.constructor === String) {
                 return x;
             }
@@ -33,7 +33,7 @@ function createVditor(element, dotNet, options) {
 
             x.click = () => dotNet.invokeMethodAsync('InvokeToolbarCallback', x.name);
             return x;
-        }) : null,
+        }),
         resize: {
             ...options.resize,
             after: (heightDelta) => dotNet.invokeMethodAsync('InvokeResizeAfter', heightDelta)
@@ -48,7 +48,7 @@ function createVditor(element, dotNet, options) {
         },
         preview: {
             ...options.preview,
-            actions: options.preview.actions ? options.preview.actions.map(x => {
+            actions: options.preview?.actions?.map(x => {
                 if (x.constructor === String) {
                     return x;
                 }
@@ -59,7 +59,7 @@ function createVditor(element, dotNet, options) {
 
                 x.click = (value) => dotNet.invokeMethodAsync('InvokePreviewActionCallback', value);
                 return x;
-            }) : null,
+            }),
             parse: (value) => dotNet.invokeMethodAsync('InvokePreviewParse'),
             transform: (html) => dotNet.invokeMethod('InvokePreviewTransform', html).result,
         },
@@ -73,14 +73,14 @@ function createVditor(element, dotNet, options) {
         },
         hint: {
             ...options.hint,
-            extend: options.hint.extend ? options.hint.extend.map(x => {
+            extend: options.hint?.extend?.map(x => {
                 if (x.hint === undefined) {
                     return x;
                 }
 
                 x.hint = async (value) => await dotNet.invokeMethodAsync('InvokeHintCallback', x.key, value);
                 return x;
-            }) : null,
+            }),
         },
         comment: {
             ...options.comment,
@@ -89,7 +89,11 @@ function createVditor(element, dotNet, options) {
             scroll: async (top) => await dotNet.invokeMethodAsync('InvokeCommentScroll', top),
             adjustTop: async (commentsData) => await dotNet.invokeMethodAsync('InvokeCommentAdjustTop', commentsData),
         },
-        after: () => dotNet.invokeMethodAsync('InvokeAfter'),
+        after: async () => {
+            const loading_element = document.getElementById("loading");
+            loading_element.remove();
+            await dotNet.invokeMethodAsync('InvokeAfter')
+        },
         input: (value) => dotNet.invokeMethodAsync('InvokeInput', value),
         focus: (value) => dotNet.invokeMethodAsync('InvokeFocus', value),
         blur: (value) => dotNet.invokeMethodAsync('InvokeBlur', value),
@@ -114,8 +118,6 @@ function createVditor(element, dotNet, options) {
     })
 
     window.load_vditor = 3;
-    const loading_element = document.getElementById("loading");
-    loading_element.remove();
     return vditor;
 }
 
@@ -136,8 +138,10 @@ function createReadonlyVditor(element, markdown, dotNet, options) {
     Vditor.preview(document.getElementById(element), markdown, {
         ...options,
         transform: (html) => dotNet.invokeMethod('InvokePreviewTransform', html).result,
-        after: () => dotNet.invokeMethodAsync('InvokeAfter'),
+        after: async () => {
+            const loading_element = document.getElementById("loading");
+            loading_element.remove();
+            await dotNet.invokeMethodAsync('InvokeAfter')
+        },
     });
-    const loading_element = document.getElementById("loading");
-    loading_element.remove();
 }
