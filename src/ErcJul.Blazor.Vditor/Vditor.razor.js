@@ -1,4 +1,5 @@
 const delNullNodes = (option = {}) => {
+    if (option === null || option === undefined) return option;
     Object.keys(option).forEach((key) => {
         let value = option[key];
         value && typeof value === 'object' && delNullNodes(value);
@@ -7,20 +8,26 @@ const delNullNodes = (option = {}) => {
 }
 
 export function initVditor(element, dotNet, options) {
-    if (window.load_vditor === undefined) {
-        window.load_vditor = 1;
+    let elementId = element.constructor === String ? element : element.id;
+    if (window.ercjul_vditor?.[elementId]?.load_vditor === undefined) {
+        window.ercjul_vditor = {
+            ...window.ercjul_vditor,
+            [elementId]: {
+                load_vditor: 1
+            }
+        }
         setTimeout(createVditor, 100, element, dotNet, options);
     }
 }
 
 function createVditor(element, dotNet, options) {
-    if (Vditor === undefined) {
+    if (window.Vditor === undefined) {
         setTimeout(createVditor, 100, element, dotNet, options);
         return;
     }
-    window.load_vditor = 2;
+    window.ercjul_vditor[element.constructor === String ? element : element.id].load_vditor = 2;
     delNullNodes(options);
-    const vditor = new Vditor(element, {
+    const vditor = new window.Vditor(element, options ? {
         ...options,
         toolbar: options.toolbar?.map(x => {
             if (x.constructor === String) {
@@ -90,7 +97,7 @@ function createVditor(element, dotNet, options) {
             adjustTop: async (commentsData) => await dotNet.invokeMethodAsync('InvokeCommentAdjustTop', commentsData),
         },
         after: async () => {
-            const loading_element = document.getElementById("loading");
+            const loading_element = document.getElementById((element.constructor === String ? element : element.id) + "-loading");
             loading_element.remove();
             await dotNet.invokeMethodAsync('InvokeAfter')
         },
@@ -115,33 +122,39 @@ function createVditor(element, dotNet, options) {
         ctrlEnter: (value) => dotNet.invokeMethodAsync('InvokeCtrlEnter', value),
         select: (value) => dotNet.invokeMethodAsync('InvokeSelect', value),
         unSelect: () => dotNet.invokeMethodAsync('InvokeUnSelect'),
-    })
+    } : null);
 
-    window.load_vditor = 3;
+    window.ercjul_vditor[element.constructor === String ? element : element.id].load_vditor = 3;
     return vditor;
 }
 
 export function initReadonlyVditor(element, markdown, dotNet, options) {
-    if (window.load_vditor === undefined) {
-        window.load_vditor = 1;
+    let elementId = element.constructor === String ? element : element.id;
+    if (window.ercjul_vditor?.[elementId]?.load_vditor === undefined) {
+        window.ercjul_vditor = {
+            ...window.ercjul_vditor,
+            [elementId]: {
+                load_vditor: 1
+            }
+        }
         setTimeout(createReadonlyVditor, 100, element, markdown, dotNet, options);
     }
 }
 
 function createReadonlyVditor(element, markdown, dotNet, options) {
-    if (Vditor === undefined) {
+    if (window.Vditor === undefined) {
         setTimeout(createReadonlyVditor, 100, element, markdown, dotNet, options);
         return;
     }
-    window.load_vditor = 2;
+    window.ercjul_vditor[element.constructor === String ? element : element.id].load_vditor = 2;
     delNullNodes(options);
-    Vditor.preview(document.getElementById(element), markdown, {
+    window.Vditor.preview(document.getElementById(element), markdown, options ? {
         ...options,
         transform: (html) => dotNet.invokeMethod('InvokePreviewTransform', html).result,
         after: async () => {
-            const loading_element = document.getElementById("loading");
+            const loading_element = document.getElementById((element.constructor === String ? element : element.id) + "-loading");
             loading_element.remove();
             await dotNet.invokeMethodAsync('InvokeAfter')
         },
-    });
+    } : null);
 }

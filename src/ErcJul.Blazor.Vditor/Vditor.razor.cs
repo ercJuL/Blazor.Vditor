@@ -13,6 +13,8 @@ using Microsoft.JSInterop;
 /// </summary>
 public partial class Vditor : ComponentBase, IAsyncDisposable
 {
+    private readonly Guid guid = Guid.NewGuid();
+
     /// <summary>
     ///     A reference to the editor's DOM element.
     /// </summary>
@@ -110,7 +112,7 @@ public partial class Vditor : ComponentBase, IAsyncDisposable
             {
                 await this.vditorDotNetModule.InvokeVoidAsync(
                     "initReadonlyVditor",
-                    "ercjul_vditor",
+                    this.guid.ToString(),
                     this.Content,
                     DotNetObjectReference.Create(this),
                     this.VditorReadonlyOption);
@@ -119,7 +121,7 @@ public partial class Vditor : ComponentBase, IAsyncDisposable
             {
                 await this.vditorDotNetModule.InvokeVoidAsync(
                     "initVditor",
-                    "ercjul_vditor",
+                    this.guid.ToString(),
                     DotNetObjectReference.Create(this),
                     this.VditorOption);
             }
